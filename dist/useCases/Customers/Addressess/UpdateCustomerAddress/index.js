@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateCustomerAddressUseCase = exports.updateCustomerAddressController = void 0;
+const PrismaCustomersAddressesRepository_1 = require("../../../../repositories/Customers/CustomersAddresses/implementarions/PrismaCustomersAddressesRepository");
+const UpdateCustomerAddressController_1 = require("./UpdateCustomerAddressController");
+const UpdateCustomerAddressDataValidate_1 = require("./UpdateCustomerAddressDataValidate");
+const UpdateCustomerAddressUseCase_1 = require("./UpdateCustomerAddressUseCase");
+const updateCustomerAddressDataValidate = new UpdateCustomerAddressDataValidate_1.UpdateCustomerAddressDataValidate();
+const customersAddressesRepository = new PrismaCustomersAddressesRepository_1.PrismaCustomersAddressesRepository();
+const updateCustomerAddressUseCase = new UpdateCustomerAddressUseCase_1.UpdateCustomerAddressUseCase(updateCustomerAddressDataValidate, customersAddressesRepository);
+exports.updateCustomerAddressUseCase = updateCustomerAddressUseCase;
+const updateCustomerAddressController = new UpdateCustomerAddressController_1.UpdateCustomerAddressController(updateCustomerAddressUseCase);
+exports.updateCustomerAddressController = updateCustomerAddressController;

@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateOrderMarketPlaceUseCase = exports.updateOrderMarketPlaceController = void 0;
+const PrismaOrdersMarketPlacesRepository_1 = require("../../../../repositories/Orders/OrdersMarketPlaces/implementations/PrismaOrdersMarketPlacesRepository");
+const UpdateOrderMarketPlaceController_1 = require("./UpdateOrderMarketPlaceController");
+const UpdateOrderMarketPlaceDataValidate_1 = require("./UpdateOrderMarketPlaceDataValidate");
+const UpdateOrderMarketPlaceUseCase_1 = require("./UpdateOrderMarketPlaceUseCase");
+const updateOrderMarketPlaceDataValidate = new UpdateOrderMarketPlaceDataValidate_1.UpdateOrderMarketPlaceDataValidate();
+const ordersMarketPlaceRepository = new PrismaOrdersMarketPlacesRepository_1.PrismaOrdersMarketPlacesRepository();
+const updateOrderMarketPlaceUseCase = new UpdateOrderMarketPlaceUseCase_1.UpdateOrderMarketPlaceUseCase(updateOrderMarketPlaceDataValidate, ordersMarketPlaceRepository);
+exports.updateOrderMarketPlaceUseCase = updateOrderMarketPlaceUseCase;
+const updateOrderMarketPlaceController = new UpdateOrderMarketPlaceController_1.UpdateOrderMarketPlaceController(updateOrderMarketPlaceUseCase);
+exports.updateOrderMarketPlaceController = updateOrderMarketPlaceController;

@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteOrderNoteUseCase = exports.deleteOrderNoteController = void 0;
+const PrismaOrdersNotesRepository_1 = require("../../../../repositories/Orders/OrdersNotes/implementations/PrismaOrdersNotesRepository");
+const DeleteOrderNoteController_1 = require("./DeleteOrderNoteController");
+const DeleteOrderNoteDataValidate_1 = require("./DeleteOrderNoteDataValidate");
+const DeleteOrderNoteUseCase_1 = require("./DeleteOrderNoteUseCase");
+const deleteOrderNoteDataValidate = new DeleteOrderNoteDataValidate_1.DeleteOrderNoteDataValidate();
+const ordersNotesRepository = new PrismaOrdersNotesRepository_1.PrismaOrdersNotesRepository();
+const deleteOrderNoteUseCase = new DeleteOrderNoteUseCase_1.DeleteOrderNoteUseCase(deleteOrderNoteDataValidate, ordersNotesRepository);
+exports.deleteOrderNoteUseCase = deleteOrderNoteUseCase;
+const deleteOrderNoteController = new DeleteOrderNoteController_1.DeleteOrderNoteController(deleteOrderNoteUseCase);
+exports.deleteOrderNoteController = deleteOrderNoteController;

@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.listTransportersUseCase = exports.listTransportersController = void 0;
+const PrismaTransporterRepository_1 = require("../../../repositories/Transporters/implementations/PrismaTransporterRepository");
+const ListTransportersController_1 = require("./ListTransportersController");
+const ListTransportersDataValidator_1 = require("./ListTransportersDataValidator");
+const ListTransportersUseCase_1 = require("./ListTransportersUseCase");
+const listTransportersDataValidate = new ListTransportersDataValidator_1.ListTransportersDataValidate;
+const transporterRepository = new PrismaTransporterRepository_1.PrismaTransporterRepository;
+const listTransportersUseCase = new ListTransportersUseCase_1.ListTransportersUseCase(listTransportersDataValidate, transporterRepository);
+exports.listTransportersUseCase = listTransportersUseCase;
+const listTransportersController = new ListTransportersController_1.ListTransportersController(listTransportersUseCase);
+exports.listTransportersController = listTransportersController;

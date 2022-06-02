@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateOrderNoteUseCase = exports.updateOrderNoteController = void 0;
+const PrismaOrdersNotesRepository_1 = require("../../../../repositories/Orders/OrdersNotes/implementations/PrismaOrdersNotesRepository");
+const UpdateOrderNoteController_1 = require("./UpdateOrderNoteController");
+const UpdateOrderNoteDataValidate_1 = require("./UpdateOrderNoteDataValidate");
+const UpdateOrderNoteUseCase_1 = require("./UpdateOrderNoteUseCase");
+const updateOrderNoteDataValidate = new UpdateOrderNoteDataValidate_1.UpdateOrderNoteDataValidate();
+const ordersNotesRepository = new PrismaOrdersNotesRepository_1.PrismaOrdersNotesRepository();
+const updateOrderNoteUseCase = new UpdateOrderNoteUseCase_1.UpdateOrderNoteUseCase(updateOrderNoteDataValidate, ordersNotesRepository);
+exports.updateOrderNoteUseCase = updateOrderNoteUseCase;
+const updateOrderNoteController = new UpdateOrderNoteController_1.UpdateOrderNoteController(updateOrderNoteUseCase);
+exports.updateOrderNoteController = updateOrderNoteController;

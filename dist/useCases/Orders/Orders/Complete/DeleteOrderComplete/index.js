@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteOrderCompleteUseCase = exports.deleteOrderCompleteController = void 0;
+const PrismaOrdersCompleteRepository_1 = require("../../../../../repositories/Orders/OrdersComplete/implementations/PrismaOrdersCompleteRepository");
+const DeleteOrderCompleteController_1 = require("./DeleteOrderCompleteController");
+const DeleteOrderCompleteDataValidate_1 = require("./DeleteOrderCompleteDataValidate");
+const DeleteOrderCompleteUseCase_1 = require("./DeleteOrderCompleteUseCase");
+const deleteOrderCompleteDataValidate = new DeleteOrderCompleteDataValidate_1.DeleteOrderCompleteDataValidate();
+const ordersCompleteRepository = new PrismaOrdersCompleteRepository_1.PrismaOrdersCompleteRepository();
+const deleteOrderCompleteUseCase = new DeleteOrderCompleteUseCase_1.DeleteOrderCompleteUseCase(deleteOrderCompleteDataValidate, ordersCompleteRepository);
+exports.deleteOrderCompleteUseCase = deleteOrderCompleteUseCase;
+const deleteOrderCompleteController = new DeleteOrderCompleteController_1.DeleteOrderCompleteController(deleteOrderCompleteUseCase);
+exports.deleteOrderCompleteController = deleteOrderCompleteController;

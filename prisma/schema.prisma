@@ -1,0 +1,207 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model CustomerAddress {
+  id           Int      @id @default(autoincrement())
+  type         String
+  name         String?
+  recipient    String?
+  customer     Customer @relation(fields: [customerId], references: [id])
+  customerId   Int      @map("customer_id")
+  address      String
+  number       String?
+  complement   String?
+  neighborhood String?
+  city         String
+  state        String
+  zipCode      String   @map("zip_code")
+  country      String
+  active       Boolean  @default(true)
+  modified     DateTime @updatedAt
+  created      DateTime @default(now())
+
+  @@map("customers_addresses")
+}
+
+model Customer {
+  id        Int               @id @default(autoincrement())
+  orders    Order[]
+  name      String            @unique
+  cpf       String?           @unique @db.VarChar(11)
+  cnpj      String?           @unique @db.VarChar(14)
+  email     String?           @unique
+  phone     String?
+  cellphone String?
+  addresses CustomerAddress[]
+  modified  DateTime          @updatedAt
+  created   DateTime          @default(now())
+
+  @@map("customers")
+}
+
+model Transporter {
+  id           Int      @id @default(autoincrement())
+  externalId   Int?     @unique @map("external_id")
+  name         String
+  ssw          Boolean
+  trackingLink String?  @map("tracking_link")
+  orders       Order[]
+  modified     DateTime @updatedAt
+  created      DateTime @default(now())
+
+  @@map("transporters")
+}
+
+model OrderPayment {
+  id       Int      @id @default(autoincrement())
+  order    Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId  Int      @map("order_id")
+  method   String
+  value    Float    @default(0)
+  date     DateTime @default(now())
+  modified DateTime @updatedAt
+  created  DateTime @default(now())
+
+  @@map("orders_payments")
+}
+
+model OrderInvoice {
+  id       Int      @id @default(autoincrement())
+  order    Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId  Int      @map("order_id")
+  cnpj     String?  @db.VarChar(14)
+  number   Int
+  key      String?
+  link     String?
+  modified DateTime @updatedAt
+  created  DateTime @default(now())
+
+  @@map("orders_invoices")
+}
+
+model OrderFinance {
+
+  id       Int      @id @default(autoincrement())
+  order    Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId  Int      @map("order_id")
+  type     String
+  value    Float
+  date     DateTime
+  applied  Boolean
+  modified DateTime @updatedAt
+  created  DateTime @default(now())
+
+  @@map("orders_finances")
+}
+
+model OrderProductSold {
+  id        Int      @id @default(autoincrement())
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId   Int      @map("order_id")
+  trayId    Int?     @map("tray_id")
+  trayKitId Int?     @map("tray_kit_id")
+  productId Int?     @map("product_id")
+  kitId     Int?     @map("kit_id")
+  quantity  Int      @default(0)
+  reference String?
+  name      String
+  cost      Float?
+  price     Float
+  paidPrice Float    @map("paid_price")
+  modified  DateTime @updatedAt
+  created   DateTime @default(now())
+
+  @@map("orders_products_sold")
+}
+
+model OrderNote {
+  id          Int      @id @default(autoincrement())
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId     Int      @map("order_id")
+  description String   @db.Text
+  by          String
+  modified    DateTime @updatedAt
+  created     DateTime @default(now())
+
+  @@map("orders_notes")
+}
+
+model OrderMarketPlaceOrder {
+
+  id                 Int      @id @default(autoincrement())
+  name               String
+  order              Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId            Int      @unique @map("order_id")
+  marketPlaceOrderId String   @map("marketplace_order_id")
+  link               String?
+  modified           DateTime @updatedAt
+  created            DateTime @default(now())
+
+  @@map("orders_marketplaces")
+}
+
+model Order {
+  id                    Int                    @id @default(autoincrement())
+  trayOrderId           Int?                   @map("tray_order_id")
+  storeCode             Int                    @map("store_code")
+  status                String
+  subtotal              Float                  @default(0)
+  taxes                 Float?                 @default(0)
+  discount              Float?                 @default(0)
+  paymentMethod         String?                @map("payment_method")
+  paymentMethodDiscount Float?                 @default(0) @map("payment_method_discount")
+  coupon                String?
+  discountCoupon        Float?                 @default(0) @map("discount_coupon")
+  total                 Float
+  localSale             String?                @map("local_sale")
+  chosenTransporterId   Int?                   @map("chosen_transporter_id")
+  chosenShippingType    String?                @map("chosen_shipping_type")
+  chosenShippingValue   Float                  @default(0) @map("chosen_shipping_value")
+  deliveryTimeMin       Int?                   @map("delivery_time_min")
+  deliveryTimeMax       Int?                   @map("delivery_time_max")
+  transporter           Transporter?           @relation(fields: [transporterId], references: [id])
+  transporterId         Int?                   @map("transporter_id")
+  shippingCost          Float?                 @map("shipping_cost")
+  dispatchedDate        DateTime?              @map("dispatched_date")
+  deliveredDate         DateTime?              @map("delivered_date")
+  partnerId             Int?                   @map("partner_id")
+  customer              Customer               @relation(fields: [customerId], references: [id])
+  customerId            Int
+  billingAddressId      Int?                   @map("billing_address_id")
+  shippingAddressId     Int?                   @map("shipping_address_id")
+  paid                  Boolean                @default(false)
+  payments              OrderPayment[]
+  invoices              OrderInvoice[]
+  finances              OrderFinance[]
+  productsSold          OrderProductSold[]
+  notes                 OrderNote[]
+  marketPlaceOrder      OrderMarketPlaceOrder?
+  modified              DateTime               @updatedAt
+  created               DateTime?              @default(now())
+
+  @@map("orders")
+}
+
+model Store {
+  id                     Int       @id @default(autoincrement())
+  active                 Boolean   @default(false)
+  trayId                 Int       @unique @map("tray_id")
+  name                   String
+  link                   String
+  apiAddress             String    @map("api_address")
+  oAuth2Code             String    @map("oauth2_code")
+  accessToken            String?   @map("access_token")
+  refreshToken           String?   @map("refresh_token")
+  expirationAccessToken  DateTime? @map("expiration_access_token")
+  expirationRefreshToken DateTime? @map("expiration_refresh_token")
+  tokenActivated         DateTime? @map("token_activated")
+  modified               DateTime  @updatedAt
+
+  @@map("stores")
+}

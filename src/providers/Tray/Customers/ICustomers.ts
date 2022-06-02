@@ -1,0 +1,52 @@
+export interface ICustomerData {
+    cnpj: string,
+    created: string,
+    id: string,
+    name: string,
+    rg: string,
+    cpf: string,
+    phone: string,
+    cellphone: string,
+    email: string,
+    total_orders: string,
+    observation: string,
+    type: string,
+    company_name: string,
+    state_inscription: string,
+    reseller: string,
+    discount: string,
+    blocked: string,
+    last_purchase: string,
+    last_visit: string,
+    last_modification: string,
+    address: string,
+    zip_code: string,
+    number: string,
+    complement: string,
+    neighborhood: string,
+    city: string,
+    state: string,
+    country: string,
+    modified: string,
+}
+
+export interface ICustomerAddress {
+    id: string,
+    customer_id: string,
+    address: string,
+    number: string,
+    complement: string,
+    neighborhood: string,
+    city: string,
+    state: string,
+    zip_code: string,
+    country: string,
+    type: string,
+    active: string,
+    description: string,
+    recipient: string,
+}
+
+export interface ICustomers {
+    
+}

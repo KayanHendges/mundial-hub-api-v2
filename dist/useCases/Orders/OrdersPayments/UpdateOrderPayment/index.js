@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateOrderPaymentUseCase = exports.updateOrderPaymentController = void 0;
+const PrismaOrdersPaymentsRepository_1 = require("../../../../repositories/Orders/OrdersPayments/implementations/PrismaOrdersPaymentsRepository");
+const UpdateOrderPaymentController_1 = require("./UpdateOrderPaymentController");
+const UpdateOrderPaymentDataValidate_1 = require("./UpdateOrderPaymentDataValidate");
+const UpdateOrderPaymentUseCase_1 = require("./UpdateOrderPaymentUseCase");
+const updateOrderPaymentDataValidate = new UpdateOrderPaymentDataValidate_1.UpdateOrderPaymentDataValidate();
+const ordersPaymentsRepository = new PrismaOrdersPaymentsRepository_1.PrismaOrdersPaymentsRepository();
+const updateOrderPaymentUseCase = new UpdateOrderPaymentUseCase_1.UpdateOrderPaymentUseCase(updateOrderPaymentDataValidate, ordersPaymentsRepository);
+exports.updateOrderPaymentUseCase = updateOrderPaymentUseCase;
+const updateOrderPaymentController = new UpdateOrderPaymentController_1.UpdateOrderPaymentController(updateOrderPaymentUseCase);
+exports.updateOrderPaymentController = updateOrderPaymentController;

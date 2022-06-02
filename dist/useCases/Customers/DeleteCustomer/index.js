@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteCustomerUseCase = exports.deleteCustomerController = void 0;
+const PrismaCustomersRepository_1 = require("../../../repositories/Customers/Customers/implementations/PrismaCustomersRepository");
+const DeleteCustomerController_1 = require("./DeleteCustomerController");
+const DeleteCustomerDataValidate_1 = require("./DeleteCustomerDataValidate");
+const DeleteCustomerUseCase_1 = require("./DeleteCustomerUseCase");
+const deleteCustomerDataValidate = new DeleteCustomerDataValidate_1.DeleteCustomerDataValidate();
+const customersRepository = new PrismaCustomersRepository_1.PrismaCustomersRepository();
+const deleteCustomerUseCase = new DeleteCustomerUseCase_1.DeleteCustomerUseCase(deleteCustomerDataValidate, customersRepository);
+exports.deleteCustomerUseCase = deleteCustomerUseCase;
+const deleteCustomerController = new DeleteCustomerController_1.DeleteCustomerController(deleteCustomerUseCase);
+exports.deleteCustomerController = deleteCustomerController;

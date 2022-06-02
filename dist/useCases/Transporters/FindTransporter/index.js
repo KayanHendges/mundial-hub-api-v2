@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.findTransporterUseCase = exports.findTransporterController = void 0;
+const PrismaTransporterRepository_1 = require("../../../repositories/Transporters/implementations/PrismaTransporterRepository");
+const FindTransporterController_1 = require("./FindTransporterController");
+const FindTransporterDataValidate_1 = require("./FindTransporterDataValidate");
+const FindTransporterUseCase_1 = require("./FindTransporterUseCase");
+const findTransporterDataValidate = new FindTransporterDataValidate_1.FindTransporterDataValidate;
+const transporterRepository = new PrismaTransporterRepository_1.PrismaTransporterRepository;
+const findTransporterUseCase = new FindTransporterUseCase_1.FindTransporterUseCase(findTransporterDataValidate, transporterRepository);
+exports.findTransporterUseCase = findTransporterUseCase;
+const findTransporterController = new FindTransporterController_1.FindTransporterController(findTransporterUseCase);
+exports.findTransporterController = findTransporterController;

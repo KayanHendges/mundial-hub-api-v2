@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createOrderInvoiceUseCase = exports.createOrderInvoiceController = void 0;
+const PrismaOrdersRepository_1 = require("../../../../repositories/Orders/Orders/implementations/PrismaOrdersRepository");
+const PrismaOrdersInvoicesRepository_1 = require("../../../../repositories/Orders/OrdersInvoices/implementations/PrismaOrdersInvoicesRepository");
+const CreateOrderInvoiceController_1 = require("./CreateOrderInvoiceController");
+const CreateOrderInvoiceDataValidate_1 = require("./CreateOrderInvoiceDataValidate");
+const CreateOrderInvoiceUseCase_1 = require("./CreateOrderInvoiceUseCase");
+const createOrderInvoiceDataValidate = new CreateOrderInvoiceDataValidate_1.CreateOrderInvoiceDataValidate();
+const ordersInvoicesRepository = new PrismaOrdersInvoicesRepository_1.PrismaOrdersInvoicesRepository();
+const ordersRespository = new PrismaOrdersRepository_1.PrismaOrdersRepository();
+const createOrderInvoiceUseCase = new CreateOrderInvoiceUseCase_1.CreateOrderInvoiceUseCase(createOrderInvoiceDataValidate, ordersInvoicesRepository, ordersRespository);
+exports.createOrderInvoiceUseCase = createOrderInvoiceUseCase;
+const createOrderInvoiceController = new CreateOrderInvoiceController_1.CreateOrderInvoiceController(createOrderInvoiceUseCase);
+exports.createOrderInvoiceController = createOrderInvoiceController;

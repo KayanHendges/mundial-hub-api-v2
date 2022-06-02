@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteOrderFinanceUseCase = exports.deleteOrderFinanceController = void 0;
+const PrismaOrdersFinancesRepository_1 = require("../../../../repositories/Orders/OrdersFinances/implementations/PrismaOrdersFinancesRepository");
+const DeleteOrderFinanceController_1 = require("./DeleteOrderFinanceController");
+const DeleteOrderFinanceDataValidate_1 = require("./DeleteOrderFinanceDataValidate");
+const DeleteOrderFinanceUseCase_1 = require("./DeleteOrderFinanceUseCase");
+const deleteOrderFinanceDataValidate = new DeleteOrderFinanceDataValidate_1.DeleteOrderFinanceDataValidate();
+const ordersFinancesRepository = new PrismaOrdersFinancesRepository_1.PrismaOrdersFinancesRepository();
+const deleteOrderFinanceUseCase = new DeleteOrderFinanceUseCase_1.DeleteOrderFinanceUseCase(deleteOrderFinanceDataValidate, ordersFinancesRepository);
+exports.deleteOrderFinanceUseCase = deleteOrderFinanceUseCase;
+const deleteOrderFinanceController = new DeleteOrderFinanceController_1.DeleteOrderFinanceController(deleteOrderFinanceUseCase);
+exports.deleteOrderFinanceController = deleteOrderFinanceController;

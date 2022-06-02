@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createOrderProductSoldUseCase = exports.createOrderProductSoldController = void 0;
+const PrismaOrdersRepository_1 = require("../../../../repositories/Orders/Orders/implementations/PrismaOrdersRepository");
+const PrismaOrdersProductsSoldRepository_1 = require("../../../../repositories/Orders/OrdersProductsSold/implementations/PrismaOrdersProductsSoldRepository");
+const CreateOrderProductSoldController_1 = require("./CreateOrderProductSoldController");
+const CreateOrderProductSoldDataValidate_1 = require("./CreateOrderProductSoldDataValidate");
+const CreateOrderProductSoldUseCase_1 = require("./CreateOrderProductSoldUseCase");
+const createOrderProductSoldDataValidate = new CreateOrderProductSoldDataValidate_1.CreateOrderProductSoldDataValidate();
+const ordersProductsSoldRepository = new PrismaOrdersProductsSoldRepository_1.PrismaOrdersProductsSoldRepository();
+const ordersRepository = new PrismaOrdersRepository_1.PrismaOrdersRepository();
+const createOrderProductSoldUseCase = new CreateOrderProductSoldUseCase_1.CreateOrderProductSoldUseCase(createOrderProductSoldDataValidate, ordersProductsSoldRepository, ordersRepository);
+exports.createOrderProductSoldUseCase = createOrderProductSoldUseCase;
+const createOrderProductSoldController = new CreateOrderProductSoldController_1.CreateOrderProductSoldController(createOrderProductSoldUseCase);
+exports.createOrderProductSoldController = createOrderProductSoldController;

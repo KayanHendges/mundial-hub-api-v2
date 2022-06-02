@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.findOrderProductSoldUseCase = exports.findOrderProductSoldController = void 0;
+const PrismaOrdersProductsSoldRepository_1 = require("../../../../repositories/Orders/OrdersProductsSold/implementations/PrismaOrdersProductsSoldRepository");
+const FindOrderProductSoldController_1 = require("./FindOrderProductSoldController");
+const FindOrderProductSoldDataValidate_1 = require("./FindOrderProductSoldDataValidate");
+const FindOrderProductSoldUseCase_1 = require("./FindOrderProductSoldUseCase");
+const findOrderProductSoldDataValidate = new FindOrderProductSoldDataValidate_1.FindOrderProductSoldDataValidate();
+const ordersProductsSoldRepository = new PrismaOrdersProductsSoldRepository_1.PrismaOrdersProductsSoldRepository();
+const findOrderProductSoldUseCase = new FindOrderProductSoldUseCase_1.FindOrderProductSoldUseCase(findOrderProductSoldDataValidate, ordersProductsSoldRepository);
+exports.findOrderProductSoldUseCase = findOrderProductSoldUseCase;
+const findOrderProductSoldController = new FindOrderProductSoldController_1.FindOrderProductSoldController(findOrderProductSoldUseCase);
+exports.findOrderProductSoldController = findOrderProductSoldController;

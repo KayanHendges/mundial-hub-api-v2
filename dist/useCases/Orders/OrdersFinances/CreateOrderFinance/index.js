@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createOrderFinanceUseCase = exports.createOrderFinanceController = void 0;
+const PrismaOrdersRepository_1 = require("../../../../repositories/Orders/Orders/implementations/PrismaOrdersRepository");
+const PrismaOrdersFinancesRepository_1 = require("../../../../repositories/Orders/OrdersFinances/implementations/PrismaOrdersFinancesRepository");
+const CreateOrderFinanceController_1 = require("./CreateOrderFinanceController");
+const CreateOrderFinanceDataValidate_1 = require("./CreateOrderFinanceDataValidate");
+const CreateOrderFinanceUseCase_1 = require("./CreateOrderFinanceUseCase");
+const createOrderFinanceDataValidate = new CreateOrderFinanceDataValidate_1.CreateOrderFinanceDataValidate();
+const ordersFinancesRepository = new PrismaOrdersFinancesRepository_1.PrismaOrdersFinancesRepository();
+const ordersRepository = new PrismaOrdersRepository_1.PrismaOrdersRepository();
+const createOrderFinanceUseCase = new CreateOrderFinanceUseCase_1.CreateOrderFinanceUseCase(createOrderFinanceDataValidate, ordersFinancesRepository, ordersRepository);
+exports.createOrderFinanceUseCase = createOrderFinanceUseCase;
+const createOrderFinanceController = new CreateOrderFinanceController_1.CreateOrderFinanceController(createOrderFinanceUseCase);
+exports.createOrderFinanceController = createOrderFinanceController;

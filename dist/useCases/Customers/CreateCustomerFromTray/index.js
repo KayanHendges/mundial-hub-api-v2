@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createCustomerFromTrayUseCase = void 0;
+const CreateCustomerAddress_1 = require("../Addressess/CreateCustomerAddress");
+const ListCustomersAddressess_1 = require("../Addressess/ListCustomersAddressess");
+const CreateCustomer_1 = require("../CreateCustomer");
+const ListCustomers_1 = require("../ListCustomers");
+const UpdateCustomer_1 = require("../UpdateCustomer");
+const CreateCustomerFromTrayUseCase_1 = require("./CreateCustomerFromTrayUseCase");
+const createCustomerFromTrayUseCase = new CreateCustomerFromTrayUseCase_1.CreateCustomerFromTrayUseCase(CreateCustomer_1.createCustomerUseCase, ListCustomers_1.listCustomersUseCase, UpdateCustomer_1.updateCustomerUseCase, CreateCustomerAddress_1.createCustomerAddressUseCase, ListCustomersAddressess_1.listCustomersAddressesUseCase);
+exports.createCustomerFromTrayUseCase = createCustomerFromTrayUseCase;

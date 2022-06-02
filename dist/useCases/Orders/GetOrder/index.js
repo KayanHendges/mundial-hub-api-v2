@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getOrderController = exports.getOrderUseCase = void 0;
+const TrayOrderProvider_1 = require("../../../providers/Tray/Orders/implementations/TrayOrderProvider");
+const GetOrderController_1 = require("./GetOrderController");
+const PrismaStoreRepository_1 = require("../../../repositories/Store/implementations/PrismaStoreRepository");
+const GetOrderUseCase_1 = require("./GetOrderUseCase");
+const storeRepository = new PrismaStoreRepository_1.PrismaStoreRepository();
+const orderProvider = new TrayOrderProvider_1.TrayOrderProvider();
+const getOrderUseCase = new GetOrderUseCase_1.GetOrderUseCase(storeRepository, orderProvider);
+exports.getOrderUseCase = getOrderUseCase;
+const getOrderController = new GetOrderController_1.GetOrderController(getOrderUseCase);
+exports.getOrderController = getOrderController;

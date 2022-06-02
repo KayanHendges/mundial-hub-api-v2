@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.findOrderNoteUseCase = exports.findOrderNoteController = void 0;
+const PrismaOrdersNotesRepository_1 = require("../../../../repositories/Orders/OrdersNotes/implementations/PrismaOrdersNotesRepository");
+const FindOrderNoteController_1 = require("./FindOrderNoteController");
+const FindOrderNoteDataValidate_1 = require("./FindOrderNoteDataValidate");
+const FindOrderNoteUseCase_1 = require("./FindOrderNoteUseCase");
+const findOrderNoteDataValidate = new FindOrderNoteDataValidate_1.FindOrderNoteDataValidate();
+const ordersNotesRepositoryRepository = new PrismaOrdersNotesRepository_1.PrismaOrdersNotesRepository();
+const findOrderNoteUseCase = new FindOrderNoteUseCase_1.FindOrderNoteUseCase(findOrderNoteDataValidate, ordersNotesRepositoryRepository);
+exports.findOrderNoteUseCase = findOrderNoteUseCase;
+const findOrderNoteController = new FindOrderNoteController_1.FindOrderNoteController(findOrderNoteUseCase);
+exports.findOrderNoteController = findOrderNoteController;

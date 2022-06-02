@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getStoreController = exports.getStoreUseCase = void 0;
+const PrismaStoreRepository_1 = require("../../../repositories/Store/implementations/PrismaStoreRepository");
+const GetStoreController_1 = require("./GetStoreController");
+const GetStoreUseCase_1 = require("./GetStoreUseCase");
+const prismaStore = new PrismaStoreRepository_1.PrismaStoreRepository;
+const getStoreUseCase = new GetStoreUseCase_1.GetStoreUseCase(prismaStore);
+exports.getStoreUseCase = getStoreUseCase;
+const getStoreController = new GetStoreController_1.GetStoreController(getStoreUseCase);
+exports.getStoreController = getStoreController;
