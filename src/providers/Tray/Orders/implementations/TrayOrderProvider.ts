@@ -12,6 +12,16 @@ import { IBasicOrder, ITrayOrder, ITrayOrderListInformation, ITrayOrderProvider,
 export class TrayOrderProvider implements ITrayOrderProvider {
     async getOrdersListInformation(store: IStore): Promise<ITrayOrderListInformation> {
         
+        // service disabled to demonstration
+
+        return {
+            totalOrders: 0,
+            lastOrderId: 0,
+            orderIdList: [],
+        }
+
+        // fake return
+
         const query = `${store.apiAddress}/orders?sort=id_desc&access_token=${store.accessToken}`
 
         const listInformation = await axios.get(query)
@@ -47,6 +57,18 @@ export class TrayOrderProvider implements ITrayOrderProvider {
 
     async list({ store, limit, page }: ListParams): Promise<ListResponse> {
         
+        // service disabled to demonstration
+
+        return {
+            orders: [],
+            limit: limit,
+            page: page,
+            totalPages: 0,
+            totalOrders: 0,
+        }
+
+        // fake return
+
         const query = `${store.apiAddress}/orders?sort=id_desc&page=${page}&limit=${limit}&access_token=${store.accessToken}`
 
         const response = await axios.get(query)
@@ -100,6 +122,12 @@ export class TrayOrderProvider implements ITrayOrderProvider {
 
     async findOrderById(store: IStore, orderId: number): Promise<OrderFromTray> {
     
+        // service disabled to demonstration
+
+        throw new Error(`no orders with id ${orderId}`)
+
+        // fake return
+
         const query = `${store.apiAddress}/orders/${orderId}/complete?access_token=${store.accessToken}`
 
         const trayOrder: ITrayOrder = await axios.get(query)
